@@ -9,6 +9,8 @@ on:
 jobs:
   steps:
     - uses: actions/checkout@v1
+      with:
+        submodules: recursive
     - uses: raccoondev/push-docker-gcr
       with:
         gcr_host: eu.gcr.io
