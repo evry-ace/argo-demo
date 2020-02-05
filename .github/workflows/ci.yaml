@@ -1,5 +1,5 @@
 ---
-name: Master
+name: release
 
 on:
   push:
@@ -7,15 +7,17 @@ on:
       - master
 
 jobs:
-  steps:
-    - uses: actions/checkout@v1
-      with:
-        submodules: recursive
-    - uses: raccoondev/push-docker-gcr
-      with:
-        gcr_host: eu.gcr.io
-        image_name: demo-app
-        image_tag: latest
-        env:
-          GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
-          GOOGLE_PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
+  release:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: recursive
+      - uses: raccoondev/push-docker-gcr
+        with:
+          gcr_host: eu.gcr.io
+          image_name: demo-app
+          image_tag: latest
+          env:
+            GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
+            GOOGLE_PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
